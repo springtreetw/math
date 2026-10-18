@@ -3,270 +3,44 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>四位數減法填空挑戰</title>
+<title>數學練習園地</title>
 <style>
-:root{--ink:#253044;--muted:#667085;--line:#d9e0ea;--paper:#fff;--bg:#f3f6fb;--blue:#3569d4;--blue2:#eaf1ff;--green:#19734b;--greenbg:#e7f7ef;--red:#b42318;--redbg:#fff0ee;--gold:#8b5e00}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif}
-main{max-width:760px;margin:0 auto;padding:22px 15px 40px}
-header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:18px}
-h1{font-size:clamp(23px,5vw,32px);margin:0 0 5px;letter-spacing:.02em} .subtitle{color:var(--muted);font-size:14px}
-.score{background:white;border:1px solid var(--line);border-radius:14px;padding:10px 13px;text-align:center;min-width:84px}
-.score strong{display:block;font-size:22px;color:var(--blue)} .score span{font-size:12px;color:var(--muted)}
-.progress{height:8px;background:#e1e7f0;border-radius:99px;overflow:hidden;margin:15px 0 18px}.bar{height:100%;width:0;background:var(--blue);transition:width .2s}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:clamp(17px,4vw,28px);box-shadow:0 5px 18px #22334b0b}
-.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:22px}
-.pill{display:inline-block;background:var(--blue2);color:var(--blue);font-weight:700;border-radius:99px;padding:6px 11px;font-size:13px}
-.qnum{font-size:14px;color:var(--muted)}
-.instruction{text-align:center;color:var(--muted);font-size:14px;margin-bottom:15px}
-.equation{width:min(100%,340px);margin:0 auto 18px;font-variant-numeric:tabular-nums}
-.mathrow{display:grid;grid-template-columns:25px repeat(4,minmax(38px,1fr));gap:7px;align-items:center;margin:10px 0}
-.sign{font-size:25px;text-align:center;font-weight:500}
-.digit{height:53px;min-width:0;width:100%;border:1.5px solid var(--line);border-radius:10px;text-align:center;font-size:25px;font-weight:650;color:var(--ink);background:#fff;outline:none}
-.digit.blank{border:2px dashed #7b9ce8;background:#f5f8ff;color:var(--blue)}
-.digit:focus{border-color:var(--blue);box-shadow:0 0 0 3px #3569d422}
-.digit.fixed{background:#f6f8fb;color:#364152}
-.rule{border:0;border-top:3px solid var(--ink);margin:13px 0 12px 31px}
-.hinttext{background:#fff8e5;border:1px solid #f2d58b;border-radius:12px;padding:13px 14px;font-size:14px;line-height:1.7;margin:15px 0}
-.feedback{border-radius:12px;padding:13px 14px;margin-top:14px;font-weight:600;line-height:1.6}
-.good{background:var(--greenbg);color:var(--green)}.bad{background:var(--redbg);color:var(--red)}.neutral{background:#f2f5fa;color:var(--ink)}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
-button,select{font:inherit}button{border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:700;cursor:pointer;background:white;color:var(--ink)}
-button.primary{background:var(--blue);color:white;border-color:var(--blue)}button:disabled{opacity:.4;cursor:not-allowed}button:hover:not(:disabled){filter:brightness(.97)}
-.secondary-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.secondary-actions button{flex:1;font-size:14px;padding:10px}
-.tips{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px}.tips h2{font-size:16px;margin:0 0 8px}.tips p{font-size:14px;line-height:1.75;margin:5px 0;color:#4b5565}
-.footer{font-size:12px;color:var(--muted);text-align:center;margin-top:18px}
-
-.results{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;display:none}
-.results h2{margin:0 0 8px;font-size:20px}
-.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:13px 0}
-.metric{background:#f4f7fb;border-radius:12px;padding:12px;text-align:center}
-.metric strong{display:block;font-size:22px;color:var(--blue)}.metric span{font-size:12px;color:var(--muted)}
-.table-wrap{overflow-x:auto;margin-top:12px}
-table{border-collapse:collapse;width:100%;font-size:14px;white-space:nowrap}
-th,td{padding:10px 9px;border-bottom:1px solid var(--line);text-align:center}
-th{background:#f4f7fb;color:#475467;font-weight:700}
-td:first-child,th:first-child{text-align:left}
-.status-ok{color:var(--green);font-weight:700}.status-no{color:var(--red);font-weight:700}
-.timerline{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:-7px 0 18px;background:#f4f7fb;border-radius:12px;padding:10px 13px;font-size:14px}
-.timerline strong{font-variant-numeric:tabular-nums;font-size:18px;color:var(--blue)}
-
-
-.landing{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(22px,6vw,42px);box-shadow:0 8px 28px #22334b0b;text-align:center;margin-bottom:18px}
-.landing-icon{width:76px;height:76px;border-radius:22px;background:var(--blue2);color:var(--blue);display:grid;place-items:center;font-size:38px;margin:0 auto 18px}
-.landing h2{font-size:clamp(25px,6vw,34px);margin:0 0 10px}
-.landing p{color:var(--muted);line-height:1.8;margin:8px auto;max-width:480px}
-.landing-list{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:22px 0}
-.landing-item{background:#f4f7fb;border-radius:13px;padding:13px 8px;font-size:13px;color:#475467}
-.landing-item strong{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
-.hidden{display:none!important}
-@media(max-width:430px){.landing-list{grid-template-columns:1fr}.landing-item{display:flex;justify-content:center;gap:8px}.landing-item strong{margin:0}}
-@media(max-width:430px){.mathrow{gap:5px;grid-template-columns:21px repeat(4,minmax(0,1fr))}.digit{height:48px;font-size:22px}.sign{font-size:22px}.score{min-width:70px;padding:8px}.card{padding:16px}}
+:root{--ink:#253044;--muted:#667085;--line:#d9e0ea;--blue:#3569d4;--bluebg:#eaf1ff}
+*{box-sizing:border-box}body{margin:0;background:#f3f6fb;color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif}
+main{max-width:850px;margin:0 auto;padding:28px 16px 44px}.hero{text-align:center;padding:30px 12px 24px}
+.logo{width:76px;height:76px;border-radius:24px;background:var(--bluebg);display:grid;place-items:center;font-size:38px;margin:0 auto 16px}
+h1{font-size:clamp(28px,6vw,40px);margin:0 0 10px}.hero p{margin:0 auto;color:var(--muted);line-height:1.8;max-width:540px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+.card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;padding:23px;text-decoration:none;color:inherit;min-height:260px;box-shadow:0 6px 20px #22334b08;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-2px);border-color:#9db5ef}.icon{font-size:32px;margin-bottom:16px}
+.card h2{font-size:21px;line-height:1.45;margin:0 0 10px}.card p{font-size:14px;line-height:1.8;color:var(--muted);margin:0 0 18px}
+.card .cta{margin-top:auto;display:inline-flex;align-items:center;gap:7px;color:var(--blue);font-weight:750}
+.card.planned{background:#fbfcfe;border-style:dashed}.planned .cta{color:#667085}
+.note{margin:18px 0 0;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--muted);font-size:13px;line-height:1.8}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
+@media(max-width:620px){.cards{grid-template-columns:1fr}.card{min-height:220px}.hero{padding-top:18px}}
 </style>
 </head>
-<body>
-<main>
-<header>
- <div><h1>四位數減法填空挑戰</h1><div class="subtitle">國小三年級・找出被減數、減數和差的未知數字</div></div>
- <div class="score"><strong id="score">0 / 50</strong><span>已答對題數</span></div>
-</header>
-<section class="landing" id="startScreen">
- <div class="landing-icon">✏️</div>
- <h2>準備好接受挑戰了嗎？</h2>
- <p>完成 50 題四位數減法直式填空，練習找出被減數、減數和差裡的未知數字。</p>
- <div class="landing-list">
-  <div class="landing-item"><strong>50 題</strong>循序漸進的挑戰</div>
-  <div class="landing-item"><strong>計時器</strong>記錄每題與總時間</div>
-  <div class="landing-item"><strong>成績表</strong>完成後查看統計</div>
- </div>
- <p>小提醒：可以慢慢思考，不必急著作答。遇到困難時，也可以使用提示。</p>
- <button id="startButton" class="primary" style="width:100%;max-width:300px;margin-top:10px">開始挑戰 →</button>
+<body><main>
+<section class="hero">
+ <div class="logo" aria-hidden="true">🧮</div>
+ <h1>數學練習園地</h1>
+ <p>選擇今天要挑戰的題型。慢慢思考、一步一步推理，比急著寫出答案更重要！</p>
 </section>
-<div class="progress hidden" id="progressArea"><div class="bar" id="bar"></div></div>
-<section class="card hidden" id="quizCard">
- <div class="topline"><span class="pill" id="level">第一關・暖身練習</span><span class="qnum" id="qnum">第 1 / 50 題</span></div>
- <div class="timerline"><span>本題答題時間</span><strong id="questionTimer">00:00</strong><span>總計 <strong id="totalTimer">00:00</strong></span></div>
- <div class="instruction">直接點選藍色虛線空格，填入一個數字</div>
- <div class="equation" id="equation"></div>
- <div id="feedback" aria-live="polite"></div>
- <div id="hint" class="hinttext" hidden></div>
- <div class="actions">
-  <button id="check" class="primary">檢查答案</button>
-  <button id="next">下一題 →</button>
- </div>
- <div class="secondary-actions">
-  <button id="showHint">給我提示</button>
-  <button id="showAnswer">查看答案</button>
-  <button id="clear">清除本題</button>
- </div>
+<section class="cards" aria-label="練習題型">
+ <a class="card" href="four-digit-add-subtract.html">
+  <div class="icon" aria-hidden="true">➖</div>
+  <h2>不超過 10,000 的四位數加減法填空</h2>
+  <p>每次隨機產生 50 題加法或減法，包含計時器、答題統計與 CSV 匯出。</p>
+  <span class="cta">進入練習 <span aria-hidden="true">→</span></span>
+ </a>
+ <a class="card planned" href="three-digit-multiplication.html">
+  <div class="icon" aria-hidden="true">✖️</div>
+  <h2>三位數乘以一位數的乘法填空</h2>
+  <p>預計新增的練習。題目形式、進位填空與難度分級會再一起討論設計。</p>
+  <span class="cta">查看開始練習的頁面 <span aria-hidden="true">→</span></span>
+ </a>
 </section>
-<section class="results" id="results">
- <h2>本次練習統計表</h2>
- <div id="resultSummary"></div>
- <div class="table-wrap"><table>
-  <thead><tr><th>題號</th><th>關卡</th><th>作答結果</th><th>嘗試次數</th><th>答題時間</th></tr></thead>
-  <tbody id="resultRows"></tbody>
- </table></div>
- <div class="secondary-actions"><button id="downloadCsv">下載統計 CSV</button><button id="restart">重新挑戰 50 題</button></div>
-</section>
-<section class="tips hidden" id="tipsArea">
- <h2>解題小提醒</h2>
- <p>① 可以從個位數開始觀察，也可以先找你最有把握的一格。</p>
- <p>② 如果上面的數字不夠減，就要向左邊借 1；借來的 1 代表 10。</p>
- <p>③ 填完後，記得檢查「被減數 − 減數 = 差」是否成立。</p>
-</section>
-<div class="footer hidden" id="footerArea">完成第 50 題後按「下一題」即可查看統計表；可下載 CSV 保存成績。</div>
-</main>
-<script>
-const questions = [{"level":1,"patterns":[["5","1","5",""],["2","","4","3"],["","3","1","5"]],"answers":["5158","2843","2315"]},{"level":1,"patterns":[["","6","5","3"],["2","7","3",""],["4","","2","1"]],"answers":["7653","2732","4921"]},{"level":1,"patterns":[["3","9","","1"],["1","3","1",""],["","6","5","1"]],"answers":["3961","1310","2651"]},{"level":1,"patterns":[["","2","2","0"],["3","1","","0"],["1","","0","0"]],"answers":["4220","3120","1100"]},{"level":1,"patterns":[["3","","4","5"],["","1","2",""],["2","1","","2"]],"answers":["3245","1123","2122"]},{"level":1,"patterns":[["5","3","5",""],["2","","2","5"],["2","4","","2"]],"answers":["5357","2925","2432"]},{"level":1,"patterns":[["6","2","","9"],["","1","2","8"],["4","1","5",""]],"answers":["6279","2128","4151"]},{"level":1,"patterns":[["7","1","9",""],["1","","2","0"],["5","8","","9"]],"answers":["7199","1320","5879"]},{"level":1,"patterns":[["","9","5","3"],["1","","4","7"],["6","0","","6"]],"answers":["7953","1947","6006"]},{"level":1,"patterns":[["","3","5",""],["1","","0","6"],["6","1","","2"]],"answers":["7358","1206","6152"]},{"level":2,"patterns":[["","3","3","8"],["2","0","4",""],["2","","9","5"]],"answers":["4338","2043","2295"]},{"level":2,"patterns":[["","5","8","2"],["2","8","7",""],["3","7","","8"]],"answers":["6582","2874","3708"]},{"level":2,"patterns":[["6","9","5",""],["","","5","8"],["5","0","","9"]],"answers":["6957","1858","5099"]},{"level":2,"patterns":[["8","6","4",""],["","5","","4"],["7","","6","2"]],"answers":["8646","1584","7062"]},{"level":2,"patterns":[["4","","6","1"],["1","9","4",""],["","3","2","1"]],"answers":["4261","1940","2321"]},{"level":2,"patterns":[["","5","9","4"],["1","7","",""],["3","","0","2"]],"answers":["5594","1792","3802"]},{"level":2,"patterns":[["9","","1","6"],["8","0","0",""],["","1","0","9"]],"answers":["9116","8007","1109"]},{"level":2,"patterns":[["9","3","","3"],["","2","5","1"],["2","0","9",""]],"answers":["9343","7251","2092"]},{"level":2,"patterns":[["3","","2","7"],["","7","4","1"],["1","7","","6"]],"answers":["3527","1741","1786"]},{"level":2,"patterns":[["","5","6","1"],["1","8","","0"],["4","","2","1"]],"answers":["6561","1840","4721"]},{"level":3,"patterns":[["","8","5","7"],["5","","5","9"],["1","4","","8"]],"answers":["6857","5359","1498"]},{"level":3,"patterns":[["6","7","0",""],["2","7","","3"],["3","","3","0"]],"answers":["6703","2773","3930"]},{"level":3,"patterns":[["6","","5","6"],["1","4","","6"],["","8","6","0"]],"answers":["6356","1496","4860"]},{"level":3,"patterns":[["4","","5","3"],["","4","6","5"],["3","4","",""]],"answers":["4953","1465","3488"]},{"level":3,"patterns":[["8","","5","8"],["6","5","","6"],["1","4","7",""]],"answers":["8058","6586","1472"]},{"level":3,"patterns":[["8","","7","3"],["","6","4",""],["4","9","","5"]],"answers":["8573","3648","4925"]},{"level":3,"patterns":[["8","2","","3"],["","4","4","9"],["2","","5","4"]],"answers":["8203","5449","2754"]},{"level":3,"patterns":[["","8","","0"],["3","","5","5"],["4","9","7",""]],"answers":["8830","3855","4975"]},{"level":3,"patterns":[["","9","2","0"],["5","","6","3"],["1","7","",""]],"answers":["6920","5163","1757"]},{"level":3,"patterns":[["9","3","","2"],["","8","7","5"],["5","4","3",""]],"answers":["9312","3875","5437"]},{"level":4,"patterns":[["7","1","","0"],["1","","9","1"],["5","6","8",""]],"answers":["7180","1491","5689"]},{"level":4,"patterns":[["8","4","","7"],["3","","5","9"],["","9","4","8"]],"answers":["8407","3459","4948"]},{"level":4,"patterns":[["4","4","","2"],["","","8","1"],["1","9","3",""]],"answers":["4412","2481","1931"]},{"level":4,"patterns":[["8","1","","8"],["4","5","1",""],["","","9","2"]],"answers":["8108","4516","3592"]},{"level":4,"patterns":[["4","0","","1"],["2","7","4",""],["","","6","4"]],"answers":["4011","2747","1264"]},{"level":4,"patterns":[["5","","1","5"],["1","7","6",""],["","4","4","8"]],"answers":["5215","1767","3448"]},{"level":4,"patterns":[["4","2","1",""],["","0","9","4"],["1","1","","7"]],"answers":["4211","3094","1117"]},{"level":4,"patterns":[["8","0","5",""],["1","4","","7"],["","","9","7"]],"answers":["8054","1457","6597"]},{"level":4,"patterns":[["","8","0",""],["3","4","","4"],["1","","6","9"]],"answers":["4803","3434","1369"]},{"level":4,"patterns":[["7","","0","5"],["","0","1","7"],["1","9","","8"]],"answers":["7005","5017","1988"]},{"level":5,"patterns":[["7","","3","2"],["1","7","7",""],["5","7","","4"]],"answers":["7532","1778","5754"]},{"level":5,"patterns":[["5","","1","1"],["","5","1",""],["3","9","","9"]],"answers":["5511","1512","3999"]},{"level":5,"patterns":[["","","0","1"],["2","5","2",""],["2","6","","5"]],"answers":["5201","2526","2675"]},{"level":5,"patterns":[["8","","0","1"],["3","9","4",""],["4","9","","2"]],"answers":["8901","3949","4952"]},{"level":5,"patterns":[["9","1","",""],["7","","6","6"],["","2","4","5"]],"answers":["9111","7866","1245"]},{"level":5,"patterns":[["","1","","1"],["4","","5","9"],["1","4","6",""]],"answers":["6121","4659","1462"]},{"level":5,"patterns":[["8","","7","4"],["2","7","","5"],["5","2","8",""]],"answers":["8074","2785","5289"]},{"level":5,"patterns":[["4","","1","4"],["1","8","","9"],["","4","3","5"]],"answers":["4314","1879","2435"]},{"level":5,"patterns":[["8","","1","0"],["","6","6","3"],["2","9","4",""]],"answers":["8610","5663","2947"]},{"level":5,"patterns":[["","1","4","2"],["1","","7","6"],["1","5","6",""]],"answers":["3142","1576","1566"]}];
-const levelNames = ["","第一關・暖身練習","第二關・開始退位","第三關・連續退位","第四關・進階挑戰","第五關・高手挑戰"];
-let current=0, correctSet=new Set(), attempts={}, startedAt=null, questionStartedAt=null, tickHandle=null, finished=false, started=false;
-const stats=questions.map(()=>({seconds:0, attempts:0, correct:false, visited:false}));
-function fmt(sec){sec=Math.max(0,Math.floor(sec));return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
-function updateTimers(){
- if(!started || startedAt===null || questionStartedAt===null)return;
- const now=Date.now();
- $("questionTimer").textContent=fmt((now-questionStartedAt)/1000);
- $("totalTimer").textContent=fmt((now-startedAt)/1000);
-}
-const $ = id => document.getElementById(id);
-function rowHtml(pattern,rowIndex,sign){
-  let html=`<div class="mathrow"><div class="sign">${sign}</div>`;
-  pattern.forEach((digit,col)=>{
-    if(digit===""){
-      html+=`<input class="digit blank" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="第${rowIndex+1}列第${col+1}位空格" data-row="${rowIndex}" data-col="${col}" autocomplete="off">`;
-    }else{
-      html+=`<div class="digit fixed" aria-label="${digit}">${digit}</div>`;
-    }
-  });
-  return html+"</div>";
-}
-function saveElapsed(){
- if(finished)return;
- const now=Date.now();
- stats[current].seconds += Math.max(0,(now-questionStartedAt)/1000);
- stats[current].visited=true;
- questionStartedAt=now;
-}
-function render(){
- const q=questions[current];
- questionStartedAt=Date.now();
- stats[current].visited=true;
- updateTimers();
- $("level").textContent=levelNames[q.level];
- $("qnum").textContent=`第 ${current+1} / ${questions.length} 題`;
- $("equation").innerHTML=rowHtml(q.patterns[0],0,"") + rowHtml(q.patterns[1],1,"−") + '<hr class="rule">' + rowHtml(q.patterns[2],2,"");
- $("feedback").innerHTML="";
- $("hint").hidden=true; $("hint").textContent="";
- $("showAnswer").textContent="查看答案";
- $("next").textContent=current===questions.length-1?"重新挑戰 ↻":"下一題 →";
- updateScore();
- const inputs=[...document.querySelectorAll(".digit.blank")];
- inputs.forEach((el,i)=>el.addEventListener("input",()=>{
-   el.value=el.value.replace(/[^0-9]/g,"").slice(0,1);
-   if(el.value && inputs[i+1]) inputs[i+1].focus();
-   $("feedback").innerHTML="";
- }));
-}
-function updateScore(){
- $("score").textContent=`${correctSet.size} / ${questions.length}`;
- $("bar").style.width=`${correctSet.size/questions.length*100}%`;
-}
-function getInputs(){return [...document.querySelectorAll(".digit.blank")]}
-function check(){
- const inputs=getInputs();
- stats[current].attempts++;
- if(inputs.some(el=>el.value==="")){
-   $("feedback").innerHTML='<div class="feedback neutral">還有空格沒填喔！再找找看。</div>'; return;
- }
- const q=questions[current];
- let ok=true;
- inputs.forEach(el=>{
-   const expected=q.answers[Number(el.dataset.row)][Number(el.dataset.col)];
-   if(el.value!==expected){ok=false;el.style.borderColor="var(--red)";} else {el.style.borderColor="var(--green)";}
- });
- if(ok){
-   correctSet.add(current);
-   stats[current].correct=true;
-   try{localStorage.setItem("subtraction-fill-correct",JSON.stringify([...correctSet]));}catch(e){}
-   $("feedback").innerHTML='<div class="feedback good">答對了！三排數字都正確。太棒了！</div>';
- }else{
-   $("feedback").innerHTML='<div class="feedback bad">有些數字還不對，再試一次。你可以先檢查個位數，並留意有沒有退位。</div>';
- }
- updateScore();
- updateTimers();
-}
-function hint(){
- const q=questions[current];
- const blanks=q.patterns.reduce((n,row)=>n+row.filter(x=>x==="").length,0);
- $("hint").hidden=false;
- $("hint").textContent="提示：先觀察個位數，再往左推理。若個位數需要退位，十位要先少 1；百位、千位也要留意連續退位。這題共有 "+blanks+" 個空格。";
-}
-function reveal(){
- const q=questions[current], inputs=getInputs();
- const showing=$("showAnswer").textContent==="隱藏答案";
- if(showing){$("showAnswer").textContent="查看答案";return;}
- inputs.forEach(el=>{el.value=q.answers[Number(el.dataset.row)][Number(el.dataset.col)];el.style.borderColor="var(--green)";});
- $("feedback").innerHTML='<div class="feedback neutral">答案已填入。請再讀一次整個算式，確認減法關係。</div>';
- $("showAnswer").textContent="隱藏答案";
-}
-function clearCurrent(){
- getInputs().forEach(el=>{el.value="";el.style.borderColor="";});
- $("feedback").innerHTML="";
-}
-$("check").addEventListener("click",check);
-$("showHint").addEventListener("click",hint);
-$("showAnswer").addEventListener("click",reveal);
-$("clear").addEventListener("click",clearCurrent);
-function finish(){
- saveElapsed();
- finished=true;
- clearInterval(tickHandle);
- $("results").style.display="block";
- const totalSeconds=stats.reduce((s,x)=>s+x.seconds,0);
- const attempted=stats.filter(x=>x.attempts>0).length;
- const correct=stats.filter(x=>x.correct).length;
- const accuracy=attempted?Math.round(correct/attempted*100):0;
- $("resultSummary").innerHTML=`<div class="summary-grid">
-  <div class="metric"><strong>${correct}/50</strong><span>答對題數</span></div>
-  <div class="metric"><strong>${accuracy}%</strong><span>正確率（以作答題目計）</span></div>
-  <div class="metric"><strong>${fmt(totalSeconds)}</strong><span>總答題時間</span></div>
- </div><p>已作答 ${attempted} 題；未檢查或未作答的題目會標示為「未完成」。每題時間是停留在該題的累計時間。</p>`;
- $("resultRows").innerHTML=stats.map((s,i)=>`<tr><td>第 ${i+1} 題</td><td>${levelNames[questions[i].level]}</td><td class="${s.correct?'status-ok':'status-no'}">${s.correct?'答對':s.attempts?'未答對':'未完成'}</td><td>${s.attempts}</td><td>${fmt(s.seconds)}</td></tr>`).join("");
- $("results").scrollIntoView({behavior:"smooth",block:"start"});
-}
-function nextQuestion(){
- saveElapsed();
- if(current===questions.length-1){finish();return;}
- current++;
- render();
-}
-$("next").addEventListener("click",nextQuestion);
-$("downloadCsv").addEventListener("click",()=>{
- const rows=[["題號","關卡","結果","檢查次數","答題秒數"],...stats.map((s,i)=>[i+1,levelNames[questions[i].level],s.correct?"答對":s.attempts?"未答對":"未完成",s.attempts,s.seconds.toFixed(1)])];
- const csv="\\uFEFF"+rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\\r\\n");
- const url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8;"}));
- const a=document.createElement("a");a.href=url;a.download="減法填空答題統計.csv";a.click();URL.revokeObjectURL(url);
-});
-$("restart").addEventListener("click",()=>{
- current=0;correctSet=new Set();stats.forEach(s=>{s.seconds=0;s.attempts=0;s.correct=false;s.visited=false;});
- if(tickHandle)clearInterval(tickHandle);
- started=true;startedAt=Date.now();questionStartedAt=Date.now();finished=false;
- tickHandle=setInterval(updateTimers,250);
- $("results").style.display="none";render();window.scrollTo({top:0,behavior:"smooth"});
-});
-function startChallenge(){
- started=true;finished=false;
- startedAt=Date.now();questionStartedAt=Date.now();
- $("startScreen").classList.add("hidden");
- $("progressArea").classList.remove("hidden");
- $("quizCard").classList.remove("hidden");
- $("tipsArea").classList.remove("hidden");
- $("footerArea").classList.remove("hidden");
- tickHandle=setInterval(updateTimers,250);
- render();
-}
-$("startButton").addEventListener("click",startChallenge);
-render();
-</script>
-</body>
-</html>
+<div class="note"><strong>題庫說明：</strong>加減法題目會在每次開始時重新隨機產生；乘法頁面仍是規劃中的頁面。</div>
+<footer>數學練習園地 · 適合國小階段的互動練習</footer>
+</main></body></html>
