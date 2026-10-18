@@ -15,7 +15,6 @@ h1{font-size:clamp(28px,6vw,40px);margin:0 0 10px}.hero p{margin:0 auto;color:va
 .card:hover{transform:translateY(-2px);border-color:#9db5ef}.icon{font-size:32px;margin-bottom:16px}
 .card h2{font-size:21px;line-height:1.45;margin:0 0 10px}.card p{font-size:14px;line-height:1.8;color:var(--muted);margin:0 0 18px}
 .card .cta{margin-top:auto;display:inline-flex;align-items:center;gap:7px;color:var(--blue);font-weight:750}
-.card.planned{background:#fbfcfe;border-style:dashed}.planned .cta{color:#667085}
 .note{margin:18px 0 0;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--muted);font-size:13px;line-height:1.8}
 footer{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
 @media(max-width:620px){.cards{grid-template-columns:1fr}.card{min-height:220px}.hero{padding-top:18px}}
@@ -29,18 +28,18 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
 </section>
 <section class="cards" aria-label="練習題型">
  <a class="card" href="four-digit-add-subtract.html">
-  <div class="icon" aria-hidden="true">➖</div>
+  <div class="icon" aria-hidden="true">➕ ➖</div>
   <h2>不超過 10,000 的四位數加減法填空</h2>
   <p>每次隨機產生 50 題加法或減法，包含計時器、答題統計與 CSV 匯出。</p>
   <span class="cta">進入練習 <span aria-hidden="true">→</span></span>
  </a>
- <a class="card planned" href="three-digit-multiplication.html">
+ <a class="card" href="three-digit-multiplication.html">
   <div class="icon" aria-hidden="true">✖️</div>
   <h2>三位數乘以一位數的乘法填空</h2>
-  <p>預計新增的練習。題目形式、進位填空與難度分級會再一起討論設計。</p>
-  <span class="cta">查看開始練習的頁面 <span aria-hidden="true">→</span></span>
+  <p>每次隨機產生 50 題三位數乘以一位數的填空，包含計時器、錯題統計、顯示答案與 CSV 匯出。</p>
+  <span class="cta">進入練習 <span aria-hidden="true">→</span></span>
  </a>
 </section>
-<div class="note"><strong>題庫說明：</strong>加減法題目會在每次開始時重新隨機產生；乘法頁面仍是規劃中的頁面。</div>
+<div class="note"><strong>練習說明：</strong>兩種題型都會在每次開始時隨機產生 50 題，並提供作答計時與結果匯出。</div>
 <footer>數學練習園地 · 適合國小階段的互動練習</footer>
 </main></body></html>
